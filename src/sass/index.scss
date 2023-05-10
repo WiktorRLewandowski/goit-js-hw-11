@@ -40,21 +40,20 @@ img {
   width: 100%;
 
   background-color: indigo;
-
-  padding: 0.5rem;
+  padding-block: 8px;
 }
 
 .wrapper {
   max-width: 1140px;
-  margin-inline: 15px;
-  padding-inline:15px;
+  margin: 0 auto;
+  padding-inline: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
 }
 
-@media (max-width: 580px) {
+@media (max-width: 680px) {
   body {
     padding-top: 124px;
   }
@@ -69,15 +68,18 @@ img {
   color: #fff;
   font-size: 2rem;
 }
+.contact {
+  width: 123px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .logo {
   color: #fff;
   font-family: 'Amatic SC', cursive;
   font-weight: 700;
   font-size: 2rem;
-
-  margin-left: 25px;
-  margin-right: auto;
 }
 
 .search-form {

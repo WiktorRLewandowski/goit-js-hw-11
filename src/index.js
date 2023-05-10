@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -9,7 +8,6 @@ const searchInput = document.querySelector('.search-input');
 const searchBtn = document.querySelector('.search-submit');
 const galleryEl = document.getElementById('gallery');
 
-console.log(photos.hits);
 function galleryCompleter(data) {
   data.forEach(data => {
     galleryEl.innerHTML += `
@@ -38,9 +36,18 @@ function galleryCompleter(data) {
   });
 }
 
-galleryCompleter(photos.hits);
-Notiflix.Notify.success(`Yippie! ${photos.totalHits} hits found!`);
+
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
+
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (searchInput.value === "") {
+    galleryEl.innerHTML = '';
+  } else {
+    galleryCompleter(photos.hits);
+    lightbox.refresh()
+  }
+})
