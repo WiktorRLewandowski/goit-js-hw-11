@@ -62,11 +62,16 @@ img {
   padding: 2px;
   height: 18px;
   width: 18px;
+  background-color: #fff;
   background-image: url(../images/search-icon.svg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.6;
+  cursor: pointer;
+  &:active {
+    opacity: 0.8;
+  }
 }
 
 .gallery {

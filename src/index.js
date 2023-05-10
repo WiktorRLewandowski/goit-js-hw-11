@@ -14,7 +14,7 @@ function galleryCompleter(data) {
   data.forEach(data => {
     galleryEl.innerHTML += `
       <div class="photo-card"><a href="${data.largeImageURL}" class="gallery-link">
-        <img src="${data.webformatURL}" class="gallery-image" alt="${data.tags}" loading="lazy" />
+        <img src="${data.previewURL}" class="gallery-image" alt="${data.tags}" loading="lazy" />
         </a>
         <div class="info">
           <p class="info-item">
