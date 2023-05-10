@@ -16,6 +16,11 @@
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 body {
   color: #212121;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -36,11 +41,43 @@ img {
 
   background-color: indigo;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0.5rem;
+}
 
-  padding: 1rem;
+.wrapper {
+  max-width: 1140px;
+  margin-inline: 15px;
+  padding-inline:15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 580px) {
+  body {
+    padding-top: 124px;
+  }
+  .wrapper {
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+  }
+}
+
+.icon {
+  color: #fff;
+  font-size: 2rem;
+}
+
+.logo {
+  color: #fff;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 700;
+  font-size: 2rem;
+
+  margin-left: 25px;
+  margin-right: auto;
 }
 
 .search-form {
@@ -81,7 +118,7 @@ img {
   grid-auto-rows: 240px;
   grid-gap: 12px;
   justify-content: center;
-  padding: 0;
+  padding: 0 15px;
   margin: 12px auto 0;
 }
 
