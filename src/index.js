@@ -13,7 +13,7 @@ console.log(photos.hits);
 function galleryCompleter(data) {
   data.forEach(data => {
     galleryEl.innerHTML += `
-      <div class="photo-card"><a href="${data.largeImageURL}" class="gallery-link">
+      <div class="photo-card"><a href="${data.previewURL}" class="gallery-link">
         <img src="${data.previewURL}" class="gallery-image" alt="${data.tags}" loading="lazy" />
         </a>
         <div class="info">

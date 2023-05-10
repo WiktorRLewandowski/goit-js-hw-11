@@ -94,6 +94,7 @@ img {
 }
 
 .gallery-image {
+  height: 80%;
   width: 100%;
   object-fit: cover;
   transition: transform 250ms var(--timing-function);
@@ -122,6 +123,7 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 0.75rem;
 }
 
 @keyframes fadeIn {
