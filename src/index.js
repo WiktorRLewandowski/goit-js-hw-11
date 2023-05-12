@@ -2,12 +2,15 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchGallery } from './fetchGallery';
+import photos from './pexelsTest.json';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.querySelector('.search-input');
 const loadBtn = document.querySelector('.load-more');
 const galleryEl = document.getElementById('gallery');
 let page = 1;
+
+let lightbox;
 
 searchForm.addEventListener('submit', submitHandler);
 // searchInput.addEventListener('blur', submitHandler);
@@ -36,6 +39,7 @@ function submitHandler(e) {
       loadBtn.classList.remove('is-hidden');
       Notiflix.Notify.success(`Hey, we found ${data.totalHits} images`);
       galleryCompleter(data);
+      lightbox = new SimpleLightbox('.gallery a');
 
       if (data.total < 40) {
         loadBtn.classList.add('is-hidden');
@@ -50,9 +54,28 @@ function loadMore() {
   const pageParam = `&page=${page}`;
 
   fetchGallery(`${query}${pageParam}`)
-    .then(data => galleryCompleter(data))
+    .then(data => {
+      if (data.totalHits < (page - 1) * 40) {
+        loadBtn.classList.add('is-hidden');
+        Notiflix.Notify.failure(
+          "We're sorry, but you've reached the end of search results."
+        );
+        return;
+      }
+      galleryCompleter(data);
+      lightbox.refresh();
+    })
     .catch(error => console.log(error));
 }
+
+// const { height: cardHeight } = document
+//   .querySelector('.gallery')
+//   .firstElementChild.getBoundingClientRect();
+
+// window.scrollBy({
+//   top: cardHeight * 2,
+//   behavior: 'smooth',
+// });
 
 function galleryCompleter(data) {
   const photo = data.hits;
@@ -82,5 +105,3 @@ function galleryCompleter(data) {
       </div>`;
   });
 }
-
-let lightbox = new SimpleLightbox('.gallery a');
