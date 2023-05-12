@@ -1,34 +1,58 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import photos from './pexelsTest';
 import { fetchGallery } from './fetchGallery';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.querySelector('.search-input');
-const searchBtn = document.querySelector('.search-submit');
+const loadBtn = document.querySelector('.load-more');
 const galleryEl = document.getElementById('gallery');
+let page = 1;
 
-searchForm.addEventListener('submit', e => {
+searchForm.addEventListener('submit', submitHandler);
+// searchInput.addEventListener('blur', submitHandler);
+loadBtn.addEventListener('click', loadMore);
+
+function submitHandler(e) {
   e.preventDefault();
+  page = 1;
   const query = searchInput.value;
+  galleryEl.innerHTML = '';
+
   if (!searchInput.value.trim()) {
     galleryEl.innerHTML = '';
-  } else {
-    galleryEl.innerHTML = '';
-    fetchGallery(query)
-      .then(data => {
-        if (data.total === 0) {
-          Notiflix.Notify.failure(`Sorry, we couldn't find anything :(`);
-          return;
-        }
-        // lightbox.refresh();
-        Notiflix.Notify.success(`We found ${data.totalHits} hits`);
-        galleryCompleter(data);
-      })
-      .catch(error => console.log(error));
+    loadBtn.classList.add('is-hidden');
+    return;
   }
-});
+
+  fetchGallery(query)
+    .then(data => {
+      if (data.total === 0) {
+        loadBtn.classList.add('is-hidden');
+        Notiflix.Notify.failure(`Sorry, we couldn't find anything :(`);
+        return;
+      }
+
+      loadBtn.classList.remove('is-hidden');
+      Notiflix.Notify.success(`Hey, we found ${data.totalHits} images`);
+      galleryCompleter(data);
+
+      if (data.total < 40) {
+        loadBtn.classList.add('is-hidden');
+      }
+    })
+    .catch(error => console.log(error));
+}
+
+function loadMore() {
+  const query = searchInput.value;
+  page++;
+  const pageParam = `&page=${page}`;
+
+  fetchGallery(`${query}${pageParam}`)
+    .then(data => galleryCompleter(data))
+    .catch(error => console.log(error));
+}
 
 function galleryCompleter(data) {
   const photo = data.hits;
@@ -58,4 +82,5 @@ function galleryCompleter(data) {
       </div>`;
   });
 }
-const lightbox = new SimpleLightbox('.gallery a');
+
+let lightbox = new SimpleLightbox('.gallery a');

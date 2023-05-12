@@ -6,7 +6,6 @@ const params = new URLSearchParams({
   image_type: 'photo',
   orientation: 'horizontal',
   safesearch: true,
-  page: 1,
   per_page: 40,
 });
 
@@ -15,8 +14,7 @@ export const fetchGallery = async query => {
   const data = await response.data;
   console.log('this is response >>', response);
   console.log('this is data >>', data);
+  console.log(query);
 
   return data;
 };
-
-// https:pixabay.com/api/?key=30372139-17e231f0453b63e760e856e5b&q=yellow+flowers&image_type=photo
